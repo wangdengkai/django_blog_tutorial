@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '(!!0=x3exj!4njslf^qnk56=k=n#cz--f7q+$lb%nme-wcx3jx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',#注册blog应用
     'comments',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -107,7 +108,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+HAYSTACK_CONNECTIONS ={
+    'default':{
+        'ENGINE':'blog.whoosh_cn_backends.WhooshEngine',
+        'PATH':os.path.join(BASE_DIR,'whoosh_index'),
+    },
+}
+HAYSTACK_SEARCH_RESULTS_PRE_PAGE =5
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -126,5 +134,5 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS=[os.path.join(BASE_DIR,'static'),]
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')

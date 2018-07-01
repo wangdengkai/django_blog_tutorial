@@ -7,7 +7,7 @@ class Comment(models.Model):
 	url = models.URLField(blank=True,verbose_name="个人网站")
 	text = models.TextField(verbose_name="评论主体")
 	create_time = models.DateTimeField(auto_now_add=True,verbose_name="发表时间")
-	post = models.ForeignKey('blog.Post')
+	post = models.ForeignKey('blog.Post',on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.text[:20]
